@@ -19,8 +19,14 @@ def generate_ids(): #generates a db_id and db_secret for a new database
     db_secret = str(uuid.uuid4())
     return db_id, db_secret
 
+def generate_AO_addition_token(): #generates a AO_addition_token for a new Allowed Origin addition
+    return secrets.token_hex(24)
+
 def generate_user_id(): #generates a user_id for a new user
     return secrets.token_hex(16)
+
+def generate_auth_token(): #generates an auth token for a user
+    return secrets.token_urlsafe(32)
 
 def create_user_db(db_secret): #creates a running db instance to handle requests
     db_uri = get_db_uri(db_secret)
@@ -38,6 +44,8 @@ def create_user_db(db_secret): #creates a running db instance to handle requests
 
 def connect_with_user_db(db_id): #connects with a db created using create_user_db
     data = RegistryModel.query.filter_by(db_id=db_id).first()
+    if not data:
+        return None, None
     db_secret = data.db_secret
     connect_with_user_db_app = Flask(__name__)
     connect_with_user_db_app.config['SQLALCHEMY_DATABASE_URI'] = get_db_uri(db_secret)

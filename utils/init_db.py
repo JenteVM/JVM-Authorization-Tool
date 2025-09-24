@@ -1,6 +1,7 @@
 import os
 from flask import Flask, abort
 from flask_restful import Api
+from datetime import datetime
 from models.registry_models import RegistryModel
 from models.user_model import UserModel
 from utils.db_utils import db, generate_ids, generate_user_id, create_user_db, connect_with_user_db
@@ -46,13 +47,12 @@ def init_registry_database(): #initializes the registry database, base instance,
                         username=username,
                         email=email,
                         password_hash=password,
+                        auth_level="admin",
+                        creation_date=datetime.now(),
                     )
                     db.session.add(new_user)
                     db.session.commit()
-                    print(db_id)
+                    return db_id
 
     else:
         abort(409, description="Registry database already exists. Initialization skipped.")
-
-def init_user_db():
-    pass

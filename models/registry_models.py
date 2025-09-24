@@ -6,8 +6,9 @@ class RegistryModel(db.Model):
     db_id = db.Column(db.String(12), primary_key=True)
     db_secret = db.Column(db.String(128), unique=True, nullable=False)
     app_name = db.Column(db.String(100), nullable=False)
-    allowed_origins = db.Column(db.String, nullable=False)
-    authorized = db.Column(db.Boolean, default=True, nullable=False)
+    allowed_origins = db.Column(db.String)
+    AO_addition_token = db.Column(db.String(48)) 
+    authorized = db.Column(db.Boolean, default=True, nullable=False) #unused for now but is meant for the db administrator to authorize a db for usage
 
     def __repr__(self):
         return f"<Registry db_id={self.db_id}, app={self.app_name}>"
