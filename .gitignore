@@ -2,3 +2,4 @@ __pycache__/
 .vscode/
 instance/
 .env
+dump.rdb

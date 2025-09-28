@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse, fields, marshal_with
 from services.registry_service import create_registry_entry, get_registry_entry_by_id, get_registry_entries, get_allowed_origins, patch_registry_entry, check_post_level_auth
-from utils.db_utils import generate_AO_addition_token
+from utils.db_utils import generate_AO_addition_token, limiter
 from flask import request, abort
 
 registry_args = reqparse.RequestParser()
@@ -24,10 +24,12 @@ AO_addition_token_fields = {
 
 class RegistryListResource(Resource): #queries all registry entries and allows creation of new entries
     @marshal_with(registry_limited_fields)
+    @limiter.limit("2 per second;60 per minute")
     def get(self):
         return get_registry_entries()
 
     @marshal_with(registry_creation_fields)
+    @limiter.limit("2 per second;10 per minute")
     def post(self):
         ALLOWED_REGISTRY_CREATORS = get_allowed_origins(partial=True)
         origin = request.headers.get("Origin")
@@ -40,6 +42,7 @@ class RegistryListResource(Resource): #queries all registry entries and allows c
 
 class RegistryLookupResource(Resource): #queries a singular registry instance
     @marshal_with(registry_limited_fields)
+    @limiter.limit("2 per second;60 per minute")
     def get(self, db_id):
         entry = get_registry_entry_by_id(db_id)
         if entry:
@@ -48,6 +51,7 @@ class RegistryLookupResource(Resource): #queries a singular registry instance
 
 class RegistryAuthenticateResource(Resource): #adds allowed origins to a registry entry if it has a valid token
     @marshal_with(AO_addition_token_fields)
+    @limiter.limit("2 per second;10 per minute")
     def get(self, db_id, token):
         entry = get_registry_entry_by_id(db_id)
         if not entry:

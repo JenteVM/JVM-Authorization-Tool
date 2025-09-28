@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS
+from waitress import serve
 from dotenv import load_dotenv
 from utils.db_utils import db
 from resources.registry_resource import RegistryLookupResource, RegistryListResource, RegistryAuthenticateResource
@@ -23,6 +24,7 @@ API_LOCATION = os.getenv("API_LOCATION")
 API_PORT = int(os.getenv("API_PORT"))
 ALLOWED_REGISTRY_CREATORS = os.getenv("ALLOWED_REGISTRY_CREATORS")
 DB_REGISTRY = os.getenv("DB_REGISTRY")
+testing = os.getenv("TESTING")
 
 instance_path = os.path.join(os.getcwd(), "instance")
 db_path = os.path.join(instance_path, os.getenv("DB_REGISTRY"))
@@ -44,4 +46,7 @@ api.add_resource(UserLookupResource, "/api/<db_id>/users/<id_method>/<identifier
 api.add_resource(UserAuthenticateResource, "/api/<db_id>/users/authenticate/<int:time_extension>/<token>/")
 
 if __name__ == "__main__":
-    app.run(host=API_LOCATION, port=API_PORT, debug=False)
+    if testing == "True":
+        app.run(host=API_LOCATION, port=API_PORT, debug=True)
+    else:
+        serve(app, host=API_LOCATION, port=API_PORT)

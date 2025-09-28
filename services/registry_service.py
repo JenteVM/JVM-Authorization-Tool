@@ -82,8 +82,9 @@ def check_post_level_auth(db_id):
         return False
     
 def check_get_level_auth(db_id):
-    testing = False #change this to True if you want to disable origin checking for testing purposes
-    if testing:
+    load_dotenv()
+    testing = os.getenv("TESTING")
+    if testing == "True":
         return True
     registry_entry = get_registry_entry_by_id(db_id)
     allowed_origins = [origin.strip() for origin in registry_entry.allowed_origins.split(",") if origin.strip()]

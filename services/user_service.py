@@ -36,7 +36,7 @@ def get_all_users(db_id:str): #returns all users in the specified database
         users = UserModel.query.all()
         return users
 
-def get_user_by(db_id:str, id_method:str, identifier:str): #returns a user from a specific database by the specified method and identifier
+def get_user_by(db_id:str, id_method:str, identifier:str, full_info:bool=False): #returns a user from a specific database by the specified method and identifier
     db, app = connect_with_user_db(db_id)
     if not db:
         abort(404, description="Database not found.")
@@ -45,19 +45,19 @@ def get_user_by(db_id:str, id_method:str, identifier:str): #returns a user from 
             user = UserModel.query.filter_by(user_id=identifier).first()
             if not user:
                 return None
-            return user
+            return [user, app] if full_info else user
     
         elif id_method == "username":
             user = UserModel.query.filter_by(username=identifier).first()
             if not user:
                 return None
-            return user
+            return [user, app] if full_info else user
        
         elif id_method == "email":
             user = UserModel.query.filter_by(email=identifier).first()
             if not user:
                 return None
-            return user
+            return [user, app] if full_info else user
         
         else:
             abort(404, description="Method not found.")
@@ -92,18 +92,18 @@ def update_user(db_id, identifier, username=None, email=None, password=None, tim
         return user
     
 def delete_user(db_id, method, value): #deletes a user from the specified database
-    db, app = connect_with_user_db(db_id)
+    user, app = get_user_by(db_id,method,value, full_info=True)
     with app.app_context():
-        user = get_user_by(method,value)
         if not user:
             abort(404, description="User not found.")
         db.session.delete(user)
+        db.session.commit()
         return {"message":"User deleted succesfully."}
 
 def validate_auth_token(db_id, token): #checks if the user has a valid auth token
     db, app = connect_with_user_db(db_id)
     with app.app_context():
-        user = UserModel.query.filter_by(auth_token=token).first()
+        user = UserModel.query.filter_by(auth_token=token).where(UserModel.auth_token_expiration > datetime.now()).first()
         if not user:
             return False
         return True

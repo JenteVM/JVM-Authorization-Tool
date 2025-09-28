@@ -1,13 +1,34 @@
 import os
 import secrets
 import uuid
+from dotenv import load_dotenv
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 db = SQLAlchemy()
 app = Flask(__name__)
 from models.registry_models import RegistryModel
+
+load_dotenv()
+DB_REGISTRY = os.getenv("DB_REGISTRY")
+testing = os.getenv("TESTING")
+if testing == "True":
+    limiter = Limiter(
+        get_remote_address,
+        app=app,
+        storage_uri="memory://",
+        strategy="fixed-window",
+    )
+else:
+    limiter = Limiter(
+        get_remote_address,
+        app=app,
+        storage_uri="redis://localhost:6379",
+        strategy="fixed-window",
+    )
 
 def get_db_uri(db_secret): #returns the db location
     instance_path = os.path.join(os.getcwd(), "instance")

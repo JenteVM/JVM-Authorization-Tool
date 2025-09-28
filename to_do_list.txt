@@ -34,9 +34,9 @@ Planned additions:
     Done and Tested 3. add roles to the user database (user_model.py)
         - things like admin/user for more versatility in authorizition use
 
-    Delayed 4. add a rate limiter
+    Done and Tested 4. add a rate limiter
         - so the server can handle all requests and doesnt time out users unfairly
 
     Done and Tested 5. Only send neccisary info, think of only sending data to authorized users (user_resource.py)
 
-    Delayed 6. allow all crud operations (registry and user, the resources dont have them yet)
+    Done and Tested 6. allow all crud operations (registry and user, the resources dont have them yet)
