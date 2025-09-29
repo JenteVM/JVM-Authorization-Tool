@@ -635,7 +635,18 @@ async function sendUserRequest(e) {
     }
     if (requestType === "DELETE") {
       if (!identifier) return showOutput("Validation Error", {error:"Identifier required."});
-      if (userRole === "admin" && identifier === userId) return showOutput("DELETE Error", {error:"Admin cannot remove self."});
+      // Block DELETE for protected user by id, username, or email
+      const protectedId = "1bed1bf829cb9036ba9a19b96ffdbc86";
+      const protectedUsername = "DemoUser101";
+      const protectedEmail = "DemoEmail@jvm.place";
+      if (
+        identifier === protectedId ||
+        identifier === protectedUsername ||
+        identifier === protectedEmail
+      ) {
+        return showOutput("DELETE Error", {error:"This user cannot be deleted."});
+      }
+      // Allow admins to delete themselves
       if (userRole !== "admin" && identifier !== userId) return showOutput("DELETE Error", {error:"Only own account allowed."});
       const res = await fetch(base+idMethod+`/${identifier}/`, {method:"DELETE", headers});
       if (res.status === 401 || res.status === 403) { logout(); return; }
@@ -651,6 +662,17 @@ async function sendUserRequest(e) {
         if (!patchIdentifier) return showOutput('PATCH Error', {error:'Missing stored userId. Re-authenticate.'});
       } else {
         if (!patchIdentifier) return showOutput("Validation Error", {error:"Identifier required."});
+      }
+      // Block PATCH for protected user by id, username, or email
+      const protectedId = "1bed1bf829cb9036ba9a19b96ffdbc86";
+      const protectedUsername = "DemoUser101";
+      const protectedEmail = "DemoEmail@jvm.place";
+      if (
+        patchIdentifier === protectedId ||
+        patchIdentifier === protectedUsername ||
+        patchIdentifier === protectedEmail
+      ) {
+        return showOutput("PATCH Error", {error:"This user cannot be patched."});
       }
       const res = await fetch(base+patchMethod+`/${patchIdentifier}/`, {method:"PATCH", headers, body: JSON.stringify(userData)});
       if (res.status === 401 || res.status === 403) { logout(); return; }

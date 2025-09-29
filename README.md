@@ -8,3 +8,25 @@ This project is made by JenteVM, it serves as a simple multi application authori
 ## Why you should or shouldn't use it
 
 You should use this application if you are looking for something small scale. This is because this application only has basic security features. I strongly suggest not to use this for any large scale production. There are many flaws I am working out of here but I am not in any way obliged to do so and thus will not be a reliable point when looking for something large scale. I do suggest it to people who just care about a small security layer though, as there (to my knowledge) aren't any things that do not work for the user. (except for some delayed stuff visible in the to_do_list.txt)
+
+## How to set it up (frontend)
+
+Currently the frontend is only set up for my example, please do not use this but use your own.
+My frontend is visible at https://jvm-authorization-tool.vercel.app/ and the back end at https://auth.jvm.hackclub.app/ (it does not have an index)
+
+* __base_url/api/registry/__ 
+  * allows you to get all registries or post a new one (if authorized in the .env)
+* __base_url/api/registry/__*db_id*__/__ 
+  * allows you to get a specific registry by id
+* __base_url/api/registry/authenticate/__*db_id*__/__*token*__/__ 
+  * allows you to authenticate a new registry via a generated token (use get request)
+* __base_url/api/registry/authenticate/__*db_id*__/create/__ 
+  * allows you to create a new token for use with the previous point (use get request; need to be authorized to do so; have post level auth for that database)
+* __base_url/api/__*db_id*__/users/__ 
+  * allows you to get all users (if authorized in the .env or database) or post a new one (if authorized in the database)
+* __base_url/api/__*db_id*__/users/__*id_method*__/__*identifier*__/__ 
+  * allows you to get a specific user by either id (id_method=id), username (id_method=username) or email (id_method=email)
+* __base_url/api/__*db_id*__/users/authenticate/__*int:time_extension*__/__*token*__/__ 
+  * allows you to authenticate a user with a token (token gets refreshed upon doing so), this needs to be done with a post request
+* __base_url/api/__*db_id*__/users/authenticate/__*int:time_extension*__/0/__ 
+  * allows you to authenticate a user with username and password (token is generated upon succesfull log in), this needs to be done with a post request
