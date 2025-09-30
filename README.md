@@ -30,3 +30,6 @@ My frontend is visible at https://jvm-authorization-tool.vercel.app/ and the bac
   * allows you to authenticate a user with a token (token gets refreshed upon doing so), this needs to be done with a post request
 * __base_url/api/__*db_id*__/users/authenticate/__*int:time_extension*__/0/__ 
   * allows you to authenticate a user with username and password (token is generated upon succesfull log in), this needs to be done with a post request
+ 
+## Notice:
+I have made use of AI to go to the module base I have now. It is AI assisted coding. It is all tested and should not cause issues but I did want to bring this to your attention for if you find it important.
