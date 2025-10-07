@@ -33,3 +33,8 @@ My frontend is visible at https://jvm-authorization-tool.vercel.app/ and the bac
  
 ## Notice:
 I have made use of AI to go to the module base I have now. It is AI assisted coding. It is all tested and should not cause issues but I did want to bring this to your attention for if you find it important.
+
+## Public Test
+The frontend is available for testing at https://jvm-authorization-tool.vercel.app/, it ofcourse has some flaws, please do not mind those. The backend (for as far as is allowed) is visible at https://auth.jvm.hackclub.app/api/registry/ (it does not have an index).
+* The base user login info is as follows: Username: "DemoUser101", Email: "DemoEmail@jvm.place", Password: "1234"
+Please do not try and use this for anything else than to create your own database or to test. I do not want any changes made to this user, other users are fine, but changing this user would make the experience non-existent for others wanting to test it out.
