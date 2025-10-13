@@ -19,7 +19,7 @@ My frontend is visible at https://jvm-authorization-tool.vercel.app/ and the bac
 * __base_url/api/registry/__*db_id*__/__ 
   * allows you to get a specific registry by id
 * __base_url/api/registry/authenticate/__*db_id*__/__*token*__/__ 
-  * allows you to authenticate a new registry via a generated token (use get request)
+  * allows you to authenticate a new origin for a registry via a generated token (use get request)
 * __base_url/api/registry/authenticate/__*db_id*__/create/__ 
   * allows you to create a new token for use with the previous point (use get request; need to be authorized to do so; have post level auth for that database)
 * __base_url/api/__*db_id*__/users/__ 
@@ -37,5 +37,5 @@ I have made use of AI to go to the module base I have now. It is AI assisted cod
 ## Public Test
 The frontend is available for testing at https://jvm-authorization-tool.vercel.app/, it ofcourse has some flaws, please do not mind those. The backend (for as far as is allowed) is visible at https://auth.jvm.hackclub.app/api/registry/ (it does not have an index). <br><br>
 The base user login info is as follows: Username: "DemoUser101", Email: "DemoEmail@jvm.place", Password: "1234" <br>
-~~The current database id is: ...~~ Unfortunatly the Pubic Test is not up and running at this moment <br><br>
+The current database id is: "rWC7PMLrc94"<br><br>
 I ask of you to not try and use this for anything else than to create your own database or to test. I do not want any changes made to this user, other users are fine, but changing this user would make the experience non-existent for others wanting to test it out which I would not want to happen.
