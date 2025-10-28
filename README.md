@@ -11,6 +11,7 @@ You should use this application if you are looking for something small scale. Th
 
 ## How to set it up (frontend)
 
+*Read the wiki for detailed documentation.* <br><br>
 Currently the frontend is only set up for my example, please do not use this but use your own.
 My frontend is visible at https://jvm-authorization-tool.vercel.app/ and the back end at https://auth.jvm.hackclub.app/ (it does not have an index)
 
