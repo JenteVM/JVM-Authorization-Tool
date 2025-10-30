@@ -1,27 +1,27 @@
 ---
-name: Bug report
+name: Security flaws
 about: Create a report to help us improve
-title: "[Bug]"
+title: "[Security flaw]"
 labels: ''
 assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**Describe the security flaw**
+A clear and concise description of what the security flaw is.
 
 **To Reproduce**
-Steps to reproduce the behavior:
+Steps taken to breach the security:
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
-4. See error
+4. See unwanted behaviour
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+**Expected behavior (Optional)**
+A clear and concise description of what you expected to happen. (what security layer should've blocked it)
 
 **Screenshots**
-If applicable, add screenshots to help explain your problem.
+If applicable, add screenshots to help explain the taken steps.
 
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]
