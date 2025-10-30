@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-There is only one supported version as only one has been completed at this time.
+There is only one supported version as only one has been completed at this time. (the other "versions" are were not functional)
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -12,4 +12,4 @@ There is only one supported version as only one has been completed at this time.
 ## Reporting a Vulnerability
 
 I am a one man team and just do this for a hobby. It can't be expected to be updated very frequent, but any update there is should adress all concurrent security issues.
-Please make a bug form for any found bug not already posted for the version you found the bug on.
+Please make a report for any found security issue not already posted for the version you found the security issue on.
